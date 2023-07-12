@@ -180,5 +180,5 @@ if (userAnswer > number) {
 }
 
 tryGuessNumber();
-// alert('Продолжаем');
+alert('Продолжаем');
 }
