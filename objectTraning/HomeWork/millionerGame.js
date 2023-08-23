@@ -19,65 +19,70 @@
 // Также должна быть возможность выхода из игры заранее, если пользователю надоело играть.
 
 
-const questions = [
+const question = [
     {
-        text: 'Загадка один',
+        text: 'Одним из направлений какой религиозной философии является учение дзен?',
         variants: {
-            a: 'Правильный ответ',
-            b: 'Неверный ответ',
-            c: 'Совсем неврный ответ',
-            d: 'Очень, очень плохой ответ'
+            a: 'Даосизм',
+            b: 'Индуизм',
+            c: 'Иудаизм',
+            d: 'Буддизм',
         },
-        correctAnswerIndex: 'a',
-    },
+        сorrectAnswerIndex: 'd',
+   
+},
+
 
     {
-        text: 'Загадка два',
-        variants: {
-            a: 'Совсем неврный ответ',
-            b: 'Очень, очень плохой ответ',
-            c: 'Правильный ответ',
-            d: 'Неверный ответ',
-        },
-        correctAnswerIndex: 'c',
+    text: 'С какой фигуры начинаются соревнования по городошному спорту?',
+    variants: {
+        a: 'Часовые',
+        b: 'Артиллерия',
+        c: 'Пулеметное гнездо',
+        d: 'Пушка',
     },
+    сorrectAnswerIndex: 'd',
+},
+
 
     {
-        text: 'Загадка три',
-        variants: {
-            a: 'Совсем неврный ответ',
-            b: 'Неверный ответ',
-            c: 'Очень, очень плохой ответ',
-            d: 'Правильный ответ',
-        },
-        correctAnswerIndex: 'd',
+    text: 'Кто из перечисленных был пажом во времена Екатерины II?',
+    variants: {
+        a: 'Д. И. Фонвизин',
+        b: 'Г. Р. Державин',
+        c: 'А. Н. Радищев',
+        d: 'Н. М. Карамзин',
     },
+    сorrectAnswerIndex: 'с',
+},
 
     {
-        text: 'Загадка четыре',
-        variants: {
-            a: 'Очень, очень плохой ответ',
-            b: 'Правильный ответ',
-            c: 'Совсем неврный ответ',
-            d: 'Неверный ответ',
-        },
-        correctAnswerIndex: 'b',
+    text: 'Какой химический элемент назван в честь злого подземного гнома?',
+    variants: {
+        a: 'Гафний',
+        b: 'Кобальт',
+        c: 'Бериллий',
+        d: 'Теллур',
     },
+    сorrectAnswerIndex: 'b',
+},
+
 
     {
-        text: 'Загадка пять',
-        variants: {
-            a: 'Совсем неврный ответ',
-            b: 'Очень, очень плохой ответ',
-            c: 'Неверный ответ',
-            d: 'Правильный ответ',
-        },
-        correctAnswerIndex: 'd',
+    text: 'Сколько раз в сутки подзаводят куранты Спасской башни Кремля?',
+    variants: {
+        a: 'Один',
+        b: 'Два',
+        c: 'Три',
+        d: 'Четыре',
     },
+    сorrectAnswerIndex: 'b',
+},
+
 ];
 
 const game = {
-    questions,
+    question,
     scoreCount: 0,
     questionIndex: 0,
 
@@ -86,88 +91,72 @@ const game = {
         this.questionIndex = 0;
     },
 
+
+
     run() {
         this.init();
-        alert('Здравствуйте, добро пожаловать в игру "Кто хочет стать миллионером"');
+        alert('Привет, Игра "Кто хочет стать миллионером"');
 
         while (true) {
-            const answer = this.getAnswer();
+        const answer = this.getAnswer();
 
-            if (this.userWantExit(answer)) {
-                alert('До свидания');
+        if (this.userWantExit(answer)) {
+            alert('До свидания');
+            break;
+        }
+
+        if (this.isAnswerCorrect(answer)) {
+            alert('Это правильный ответ!');
+            this.scoreCount++;
+        }else {
+            alert('К сожалению, это ошибка');
+        }
+
+        this.questionIndex++;
+
+        if (this.isGameOver()) {
+            alert(`Ваш счет: ${this.scoreCount}.`);
+
+            if(!confirm('Хотите сыграть еще одну игру?')) {
                 break;
             }
 
-            if (this.isAnswerCorrect(answer)) {
-                alert('Это правильный ответ!');
-                this.scoreCount++;
-            }else {
-                alert('К сожалению, это ошибка');
-            }
-
-            this.questionIndex++;
-
-            if (this.isGameOver()) {
-                alert(`Ваш счет: ${this.scoreCount}.`);
-
-                if(!confirm('Хотите сыграть еще одну игру?')) {
-                    break;
-                }
-
-                this.init();
-            }
+            this.init();
         }
-    },
+    }
+},
 
-    getAnswer() {
-        while (true) {
-            let answer = prompt(this.getCurrentQuestionString());
 
-            if (answer === null) {
-                alert('Если вы хотите выйти из игры, наберите "exit".');
-                continue;
-            }
+getAnswer() {
+    while (true) {
+        let answer = prompt(this.getCurrentQuestionString());
 
-            answer = answer.trim().toLowerCase();
-
-            if (!this.validateAnswer(answer)) {
-                alert('Необходимо выбрать один из предложенных вариантов ответа');
-                continue;
-            }
-
-            return answer;
-        }
-    },
-
-    getCurrentQuestionString() {
-        const question = this.questions[this.questionIndex];
-
-        let questionString = `Вопрос: ${question.text} \n\nВарианты ответов:\n`;
-        for (const key in question.variants) {
-            if (question.variants.hasOwnProperty(key)) {
-                questionString += `${key} - ${question.variants[key]}\n`;
-            }
+        if (answer === null) {
+            alert('Если вы хотите выйти из игры, наберите "exit".');
+            continue;
         }
 
-        return questionString;
-    },
+        answer = answer.trim().toLowerCase();
 
-    validateAnswer(userAnswer) {
-        return ['exit', 'a', 'b', 'c', 'd'].indexOf(userAnswer) !== -1;
-    },
+        if (!this.validateAnswer(answer)) {
+            alert('Необходимо выбрать один из предложенных вариантов ответа');
+            continue;
+        }
 
-    userWantExit(userAnswer) {
-        return userAnswer === 'exit';
-    },
+        return answer;
+    }
+},
 
-    isAnswerCorrect(userAnswer) {
-        return this.questions[this.questionIndex].correctAnswerIndex === userAnswer;
-    },
 
-    isGameOver() {
-        return this.questionIndex > 4;
+getCurrentQuestionString() {
+    const question = this.questions[this.questionIndex];
+
+    let questionString = `Вопрос: ${question.text} \n\nВарианты ответов:\n`;
+    for (const key in question.variants) {
+        if (question.variants.hasOwnProperty(key)) {
+            questionString += `${key} - ${question.variants[key]}\n`;
+        }
     }
 
-};
-
-game.run();
+    return questionString;
+},
