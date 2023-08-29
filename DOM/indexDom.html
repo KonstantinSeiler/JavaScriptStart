@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title> Работа с DOM</title>
+</head>
+<body>
+<div id = "test-id">
+    <h1> Тестовая страницы</h1>
+<div class = "test-class">
+<p> Lorem ipsum dolor sit amet consectetur adipisicing elit. </p>
+<p> Lorem ipsum dolor sit amet consectetur adipisicing elit. </p>
+</div>
+<div class = "test-class">
+    <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit. </p>
+    <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit. </p>
+ </div>
+</div>
+
+<script>
+    "use strict";
+
+    console.log(document.getElementById('test-id')); // Вернет точно этот элемент (без методов) САМЫЙ БЫСТРЫЙ СПОСОБ НАЙТИ
+    console.dir(document.getElementById('test-id')); // Сканирует все элементы ищет test-id и вернёт объект со свойствами
+    console.log(document.getElementsByClassName('test-class')); // Даст HTML коллекцию (в одной переменной хранится несколько данных)
+    console.log(document.querySelector('.test-class:last-child')); // Ищет селекторы last-child отдаст последний test-class. Возвращает первый попавшийся подходящий под селектор
+    console.log(document.querySelectorAll('p:last-child')); // Вернет все p из всех div
+
+    const pTags = document.querySelectorAll('p:last-child'); // Положим результат этот метода, вернёт Коллекцию (объект)
+    for (let i =0; i < pTags.length; i++){ // Выведет все теги по одиночке, перебрали
+        console.log(pTags[i]);
+    }
+
+
+
+//  variable
+// На каждом шаге итерации variable присваивается значение нового свойства объекта iterable. Переменная variable может быть также объявлена с помощью const, let или var.
+
+// iterable
+// Объект, перечисляемые свойства которого обходятся во время выполнения цикла.
+//let iterable = [10, 20, 30];
+
+// for (let value of iterable) {
+//   value += 1;
+//   console.log(value);
+// }
+// 11
+// 21
+// 31
+
+    // for  (const tag of pTags) { // Возьми pTags перебери все значения теги P, каждый тег положи в tag и пробежаться. For of перебирает значения // For in перебирает index Значения
+    //     console.log(tag);
+    // }
+
+
+// const h1Tag = document.querySelector('h1');
+// setInterval(() => h1Tag.textContent += '!', 200);
+// h1Tag.textContent += '!'; // Взяли тег h1, к нему добавили ! знак и сказали добавляй его каждый 2 сек (бесконечно)
+
+// setTimeout(() => console.log(123), 1000); // Функция, выведет функцию через 1 сек
+
+// document.body.innerHTML = '<p>Привет из js</p>'; // Возьмем body удалим все что там было и вставим текст 
+
+// const h1Tag = document.querySelector('h1');
+// h1Tag.style.color = 'red'; // Возьмем тег h1 доберемся до стилей .style далее возьмем свойство color и заменим на свое red / Можем обратится backgroundColor 
+
+
+// const myDiv = document.createElement('div'); // Создали div
+// myDiv.textContent = 'Привет из js'; // Присвоили текст
+// document.body.appendChild(myDiv); // Добавляет в конец 
+
+parent.insertBefore(myDiv, parent.firstChild);
+
+
+</script>
+</body>
+</html>
