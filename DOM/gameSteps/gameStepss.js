@@ -35,6 +35,7 @@ const game = {
 
     run () {
         this.init();
+        this.render();
 
     },
 
@@ -42,19 +43,26 @@ const game = {
         this.player.init(this.settings.startPositionX, this.settings.startPositionY, this.settings.startDirection); //Вывели игрока
         this.containerElement = document.getElementById('game'); // Положили table в наше свойство containerElement
         this.initCells(); // Хочу отрисовать наши ячейки, думаю надо создать для этого метод отдельный
+        this.initEventHandlers(); 
+    },
+
+    initEventHandlers() {
+
     },
 
     initCells() {
         this.containerElement.innerHTML = ''; // Очищаем на всякий случай наш элемент от текста ( необязательно)
-        this.
+        this. cellElements = []; // Массив со всеми td
         for ( let row = 0; row < this.settings.rowsCount; row++ ) {    // Пока у нас строки меньше чем rowsCount заполняем row
              const trElem = document.createElement('tr'); // Создали переменную заполним ее tr
              this.containerElement.appendChild(trElem); // Происходит здесь следующее, мы пробежимся в цикле for столько раз, сколько строк надо вывести, 'tr' это как раз и есть строка в таблице, мы ее создаем и вставляем как ребенка в нашу таблицу
              for (let col = 0; col < this.settings.colsCount; col ++) { // Создали переменную заполняем ее td
                 const cell = document.createElement('td');
+                this.cellElements.push(cell);
                 trElem.appendChild(cell);   // Добавляем в tr ребенка td
              }
-         } 
+         }
+         
     },
 };
 
